@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<AppDbContext>(option => {
+builder.Services.AddDbContext<AppDbContext>(option =>
+{
     option.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnection"));
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -22,29 +23,26 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+using (var scope = app.Services.CreateScope())
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    var service = scope.ServiceProvider;
+    var loggerFactory = service.GetRequiredService<ILoggerFactory>();
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+    try
+    {
+        var context = service.GetRequiredService<AppDbContext>();
+
+        if (context.Database.GetPendingMigrations().Count() > 0)
+        {
+            context.Database.Migrate();
+        }
+    }
+    catch (Exception exception)
+    {
+        var logger = loggerFactory.CreateLogger<Program>();
+
+        logger.LogError(exception, "Ha ocurrido un error en la migración de datos.");
+    }
+}
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
