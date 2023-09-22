@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using coupon_service.Data.coupons;
+using coupon_service.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace coupon_service.Controllers
@@ -14,13 +11,32 @@ namespace coupon_service.Controllers
     {
         private readonly ICouponRepository _couponRepository;
         private IMapper _mapper;
-    }
 
-    [HttpGet]
-        public async Task<ActionResult<IEnumerable<PropertyResponseDto>>> GetProperties()
+        public CouponController(ICouponRepository couponRepository, IMapper mapper)
         {
-            var properties = await _propertyRepository.GetAllProperties();
-
-            return Ok(_mapper.Map<IEnumerable<PropertyResponseDto>>(properties));
+            _couponRepository = couponRepository;
+            _mapper = mapper;
         }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<CouponDto>>> GetCoupons()
+        {
+            var coupons = await _couponRepository.GetCoupons();
+
+            return Ok(_mapper.Map<IEnumerable<CouponDto>>(coupons));
+        }
+
+        /* [HttpPost]
+        public async Task<ActionResult<PropertyResponseDto>> CreateProperty([FromBody] PropertyRequestDto propertyRequestDto)
+        {
+            var property = _mapper.Map<Property>(propertyRequestDto);
+
+            await _propertyRepository.CreateProperty(property);
+            await _propertyRepository.SaveChanges();
+
+            var propertyResponseDto = _mapper.Map<PropertyResponseDto>(property);
+
+            return CreatedAtRoute(nameof(GetPropertyById), new { propertyResponseDto.Id }, propertyResponseDto);
+        } */
+    }
 }
