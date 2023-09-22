@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using coupon_service.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace coupon_service.Data.coupons
 {
@@ -30,9 +31,9 @@ namespace coupon_service.Data.coupons
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Coupon>> GetCoupons()
+        public async Task<IEnumerable<Coupon>> GetCoupons()
         {
-            throw new NotImplementedException();
+            return await _context.Coupons.ToListAsync();
         }
 
         public Task<bool> SaveChangesAsync()
