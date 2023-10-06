@@ -16,9 +16,16 @@ namespace coupon_service.Data.coupons
             _context = context;
         }
 
-        public Task CreateCoupon(Coupon coupon)
+        public async Task<int> CreateCoupon(Coupon coupon)
         {
-            throw new NotImplementedException();
+            if (coupon is null)
+            {
+                throw new BadHttpRequestException("Los datos del cupón son incorrectos", 400);
+            }
+
+            await _context.Coupons.AddAsync(coupon);
+
+            return await _context.SaveChangesAsync();
         }
 
         public Task DeleteCoupon(int id)

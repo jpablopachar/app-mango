@@ -7,7 +7,7 @@ namespace coupon_service.Data.coupons
         Task<bool> SaveChangesAsync();
         Task<IEnumerable<Coupon>> GetCoupons();
         Task<Coupon> GetCouponById(int id);
-        Task CreateCoupon(Coupon coupon);
+        Task<int> CreateCoupon(Coupon coupon);
         Task UpdateCoupon(Coupon coupon);
         Task DeleteCoupon(int id);
     }

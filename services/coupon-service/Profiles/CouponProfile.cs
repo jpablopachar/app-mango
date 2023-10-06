@@ -8,7 +8,8 @@ namespace coupon_service.Profiles
     {
         public CouponProfile()
         {
-            CreateMap<Coupon, CouponDto>();
+            CreateMap<Coupon, CouponResponseDto>();
+            CreateMap<CouponRequestDto, Coupon>();
         }
     }
 }
