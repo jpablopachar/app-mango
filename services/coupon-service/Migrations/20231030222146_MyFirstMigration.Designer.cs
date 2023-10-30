@@ -11,8 +11,8 @@ using coupon_service.Data;
 namespace coupon_service.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230920130524_SqlServerMigration")]
-    partial class SqlServerMigration
+    [Migration("20231030222146_MyFirstMigration")]
+    partial class MyFirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,22 +45,6 @@ namespace coupon_service.Migrations
                     b.HasKey("CouponId");
 
                     b.ToTable("Coupons");
-
-                    b.HasData(
-                        new
-                        {
-                            CouponId = 1,
-                            CouponCode = "ABC123",
-                            DiscountAmount = 10.0,
-                            MinAmount = 20
-                        },
-                        new
-                        {
-                            CouponId = 2,
-                            CouponCode = "XYZ123",
-                            DiscountAmount = 20.0,
-                            MinAmount = 30
-                        });
                 });
 #pragma warning restore 612, 618
         }

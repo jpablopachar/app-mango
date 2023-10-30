@@ -2,12 +2,10 @@
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace coupon_service.Migrations
 {
     /// <inheritdoc />
-    public partial class SqlServerMigration : Migration
+    public partial class MyFirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,15 +23,6 @@ namespace coupon_service.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Coupons", x => x.CouponId);
-                });
-
-            migrationBuilder.InsertData(
-                table: "Coupons",
-                columns: new[] { "CouponId", "CouponCode", "DiscountAmount", "MinAmount" },
-                values: new object[,]
-                {
-                    { 1, "ABC123", 10.0, 20 },
-                    { 2, "XYZ123", 20.0, 30 }
                 });
         }
 

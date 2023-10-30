@@ -1,5 +1,5 @@
 using AutoMapper;
-using coupon_service.Data.coupons;
+using coupon_service.Data;
 using coupon_service.Dtos;
 using coupon_service.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -10,48 +10,133 @@ namespace coupon_service.Controllers
     [ApiController]
     public class CouponController : ControllerBase
     {
-        private readonly ICouponRepository _couponRepository;
-        private IMapper _mapper;
+        private readonly AppDbContext _context;
+        private readonly ResponseDto _response;
+        private readonly IMapper _mapper;
 
-        public CouponController(ICouponRepository couponRepository, IMapper mapper)
+        public CouponController(AppDbContext context, IMapper mapper)
         {
-            _couponRepository = couponRepository;
+            _context = context;
+            _response = new();
             _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CouponResponseDto>>> GetCoupons()
+        public ResponseDto Get()
         {
-            var coupons = await _couponRepository.GetCoupons();
+            try
+            {
+                IEnumerable<Coupon> coupons = _context.Coupons.ToList();
 
-            return Ok(_mapper.Map<IEnumerable<CouponResponseDto>>(coupons));
+                _response.Result = _mapper.Map<IEnumerable<CouponDto>>(coupons);
+            }
+            catch (Exception ex)
+            {
+                _response.Success = false;
+                _response.Message = ex.Message;
+            }
+
+            return _response;
+        }
+
+        [HttpGet]
+        [Route("{id:int}")]
+        public ResponseDto Get(int id)
+        {
+            try
+            {
+                Coupon coupon = _context.Coupons.First(c => c.CouponId == id);
+
+                _response.Result = _mapper.Map<CouponDto>(coupon);
+            }
+            catch (Exception ex)
+            {
+                _response.Success = false;
+                _response.Message = ex.Message;
+            }
+
+            return _response;
+        }
+
+        [HttpGet]
+        [Route("GetByCode/{code}")]
+        public ResponseDto GetByCode(string code)
+        {
+            try
+            {
+                Coupon coupon = _context.Coupons.First(c => c.CouponCode!.ToLower() == code.ToLower());
+
+                _response.Result = _mapper.Map<CouponDto>(coupon);
+            }
+            catch (Exception ex)
+            {
+                _response.Success = false;
+                _response.Message = ex.Message;
+            }
+
+            return _response;
         }
 
         [HttpPost]
-        public async Task<ActionResult<CouponResponseDto>> CreateCoupon([FromBody] CouponRequestDto couponRequestDto)
+        public ResponseDto Post([FromBody] CouponDto couponDto)
         {
-            var coupon = _mapper.Map<Coupon>(couponRequestDto);
+            try
+            {
+                Coupon coupon = _mapper.Map<Coupon>(couponDto);
 
-            var res = await _couponRepository.CreateCoupon(coupon);
+                _context.Coupons.Add(coupon);
+                _context.SaveChanges();
 
-            if (res == 0) throw new Exception("No se pudo agregar el producto");
+                _response.Result = _mapper.Map<CouponDto>(coupon);
+            }
+            catch (Exception ex)
+            {
+                _response.Success = false;
+                _response.Message = ex.Message;
+            }
 
-            var couponResponseDto = _mapper.Map<CouponResponseDto>(coupon);
-
-            return Ok(couponResponseDto);
+            return _response;
         }
 
-        /* [HttpPost]
-        public async Task<ActionResult<PropertyResponseDto>> CreateProperty([FromBody] PropertyRequestDto propertyRequestDto)
+        [HttpPut]
+        public ResponseDto Put([FromBody] CouponDto couponDto)
         {
-            var property = _mapper.Map<Property>(propertyRequestDto);
+            try
+            {
+                Coupon coupon = _mapper.Map<Coupon>(couponDto);
 
-            await _propertyRepository.CreateProperty(property);
-            await _propertyRepository.SaveChanges();
+                _context.Coupons.Update(coupon);
+                _context.SaveChanges();
 
-            var propertyResponseDto = _mapper.Map<PropertyResponseDto>(property);
+                _response.Result = _mapper.Map<CouponDto>(coupon);
+            }
+            catch (Exception ex)
+            {
+                _response.Success = false;
+                _response.Message = ex.Message;
+            }
 
-            return CreatedAtRoute(nameof(GetPropertyById), new { propertyResponseDto.Id }, propertyResponseDto);
-        } */
+            return _response;
+        }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public ResponseDto Delete(int id)
+        {
+            try
+            {
+                Coupon coupon = _context.Coupons.First(c => c.CouponId == id);
+
+                _context.Coupons.Remove(coupon);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _response.Success = false;
+                _response.Message = ex.Message;
+            }
+
+            return _response;
+        }
     }
 }
