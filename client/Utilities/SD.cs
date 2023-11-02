@@ -2,6 +2,12 @@ namespace client.Utilities
 {
     public class SD
     {
+        public static string? CouponApi { get; set; }
+        public static string? ProductApi { get; set; }
+        public static string? AuthApi { get; set; }
+        public static string? ShoppingCartApi { get; set; }
+        public static string? OrderApi { get; set; }
+
         public const string ROLE_ADMIN = "Admin";
         public const string ROLE_CUSTOMER = "Customer";
         public const string JWT_TOKEN = "JwtToken";
