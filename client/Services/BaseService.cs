@@ -18,10 +18,12 @@ namespace client.Services
             _tokenProvider = tokenProvider;
         }
 
-        /// <summary>Sends an HTTP request and returns the response as a ResponseDto object.</summary>
-        /// <param name="requestDto">The request object containing the URL, data, and content type.</param>
-        /// <param name="withBearer">A boolean indicating whether to include a bearer token in the request header.</param>
-        /// <returns>A ResponseDto object containing the response data and status.</returns>
+        /// <summary>Sends an HTTP request using the HttpClient class and returns the
+        /// response as a ResponseDto object.</summary>
+        /// <param name="RequestDto">Contains information about the HTTP
+        /// request to be sent.</param>
+        /// <param name="withBearer">Indicates whether to include the Bearer token in the request headers.</param>
+        /// <returns>Task of type ResponseDto.</returns>
         public async Task<ResponseDto> SendAsync(RequestDto requestDto, bool withBearer = true)
         {
             try

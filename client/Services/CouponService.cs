@@ -13,9 +13,10 @@ namespace client.Services
             _baseService = baseService;
         }
 
-        /// <summary>Creates a new coupon.</summary>
-        /// <param name="couponDto">The coupon data transfer object.</param>
-        /// <returns>A response data transfer object.</returns>
+        /// <summary>Sends a POST request to the specified URL with the provided coupon
+        /// data and returns a response.</summary>
+        /// <param name="CouponDto">Contains the information to create a coupon.</param>
+        /// <returns>Task of type ResponseDto.</returns>
         public async Task<ResponseDto> CreateCouponAsync(CouponDto couponDto)
         {
             return await _baseService.SendAsync(new RequestDto
@@ -26,9 +27,10 @@ namespace client.Services
             });
         }
 
-        /// <summary>Deletes a coupon by its ID.</summary>
-        /// <param name="id">The ID of the coupon to delete.</param>
-        /// <returns>A response data transfer object.</returns>
+        /// <summary>Sends a DELETE request to the specified URL with the given coupon
+        /// ID and returns a `ResponseDto` object.</summary>
+        /// <param name="id">The id of the coupon that needs to be deleted.</param>
+        /// <returns>Task of type ResponseDto.</returns>
         public async Task<ResponseDto> DeleteCouponAsync(int id)
         {
             return await _baseService.SendAsync(new RequestDto
@@ -38,8 +40,9 @@ namespace client.Services
             });
         }
 
-        /// <summary>Retrieves all coupons from the Coupon API.</summary>
-        /// <returns>A response data transfer object.</returns>
+        /// <summary>Sends a request to the Coupon API to retrieve all coupons.
+        /// </summary>
+        /// <returns>Task of type ResponseDto.</returns>
         public async Task<ResponseDto> GetAllCouponsAsync()
         {
             return await _baseService.SendAsync(new RequestDto
@@ -49,9 +52,10 @@ namespace client.Services
             });
         }
 
-        /// <summary>Retrieves a coupon from the API by its code.</summary>
-        /// <param name="couponCode">The code of the coupon to retrieve.</param>
-        /// <returns>A response data transfer object.</returns>
+        /// <summary>Sends a GET request to a coupon API with a specified coupon
+        /// code and returns a `ResponseDto` object.</summary>
+        /// <param name="couponCode">Represent the unique identifier of a coupon.</param>
+        /// <returns>Task of type ResponseDto.</returns>
         public async Task<ResponseDto> GetCouponAsync(string couponCode)
         {
             return await _baseService.SendAsync(new RequestDto
@@ -61,9 +65,9 @@ namespace client.Services
             });
         }
 
-        /// <summary>Retrieves a coupon by its ID from the Coupon API.</summary>
-        /// <param name="id">The ID of the coupon to retrieve.</param>
-        /// <returns>A response data transfer object.</returns>
+        /// <summary>Sends a request to the Coupon API to retrieve a coupon by its ID.</summary>
+        /// <param name="id">Unique identifier of the coupon.</param>
+        /// <returns>Task of type ResponseDto.</returns>
         public async Task<ResponseDto> GetCouponByIdAsync(int id)
         {
             return await _baseService.SendAsync(new RequestDto
@@ -73,9 +77,10 @@ namespace client.Services
             });
         }
 
-        /// <summary>Updates a coupon.</summary>
-        /// <param name="couponDto">The coupon data transfer object.</param>
-        /// <returns>A response data transfer object.</returns>
+        /// <summary>Sends a PUT request to the Coupon API with the provided `couponDto` data.
+        /// </summary>
+        /// <param name="CouponDto">The coupon information to be updated.</param>
+        /// <returns>Task of type ResponseDto.</returns>
         public async Task<ResponseDto> UpdateCouponAsync(CouponDto couponDto)
         {
             return await _baseService.SendAsync(new RequestDto
