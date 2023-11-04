@@ -30,7 +30,7 @@ app.UseSwaggerUI(s =>
 {
     if (!app.Environment.IsDevelopment())
     {
-        s.SwaggerEndpoint("/swagger/v1/swagger.json", "Cart V1");
+        s.SwaggerEndpoint("/swagger/v1/swagger.json", "Cart Api V1");
 
         s.RoutePrefix = string.Empty;
     }
