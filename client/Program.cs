@@ -1,7 +1,20 @@
+using client.Interfaces;
+using client.Services;
+using client.Utilities;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient();
+builder.Services.AddHttpClient<ICouponService, CouponService>();
+
+SD.CouponApi = builder.Configuration["ServiceUrls:CouponApi"];
+
+builder.Services.AddScoped<ITokenProvider, TokenProvider>();
+builder.Services.AddScoped<IBaseService, BaseService>();
+builder.Services.AddScoped<ICouponService, CouponService>();
 
 var app = builder.Build();
 
