@@ -21,6 +21,9 @@ namespace coupon_service.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>Retrieves a list of coupons from the database and maps them
+        /// to a DTO, returning the result in a ResponseDto.</summary>
+        /// <returns>ResponseDto object.</returns>
         [HttpGet]
         public ResponseDto Get()
         {
@@ -39,6 +42,9 @@ namespace coupon_service.Controllers
             return _response;
         }
 
+        /// <summary>Retrieves a coupon by its ID and returns it as a response.</summary>
+        /// <param name="id">Represents the unique identifier of a coupon.</param>
+        /// <returns>ResponseDto object.</returns>
         [HttpGet]
         [Route("{id:int}")]
         public ResponseDto Get(int id)
@@ -58,6 +64,10 @@ namespace coupon_service.Controllers
             return _response;
         }
 
+        /// <summary>Retrieves a coupon by its code and returns a response containing
+        /// the coupon information.</summary>
+        /// <param name="code">Represents the coupon code.</param>
+        /// <returns>ResponseDto object.</returns>
         [HttpGet]
         [Route("GetByCode/{code}")]
         public ResponseDto GetByCode(string code)
@@ -77,6 +87,10 @@ namespace coupon_service.Controllers
             return _response;
         }
 
+        /// <summary>Receives a CouponDto object, maps it to a Coupon object, adds it to the
+        /// database, and returns a ResponseDto object.</summary>
+        /// <param name="CouponDto">Represents the coupon information.</param>
+        /// <returns>ResponseDto object.</returns>
         [HttpPost]
         public ResponseDto Post([FromBody] CouponDto couponDto)
         {
@@ -98,6 +112,9 @@ namespace coupon_service.Controllers
             return _response;
         }
 
+        /// <summary>Updates a coupon in the database and returns a response.</summary>
+        /// <param name="CouponDto">Represents the coupon information.</param>
+        /// <returns>ResponseDto object.</returns>
         [HttpPut]
         public ResponseDto Put([FromBody] CouponDto couponDto)
         {
@@ -119,6 +136,10 @@ namespace coupon_service.Controllers
             return _response;
         }
 
+        /// <summary>Deletes a coupon from the database based on its ID.</summary>
+        /// <param name="id">Represents the unique identifier of the coupon that needs
+        /// to be deleted.</param>
+        /// <returns>ResponseDto object.</returns>
         [HttpDelete]
         [Route("{id:int}")]
         public ResponseDto Delete(int id)
