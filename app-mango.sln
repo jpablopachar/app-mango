@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coupon-service", "services\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "client", "client\client.csproj", "{803F7DB6-3A93-4E11-BD97-42B1C8DAC2EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "auth-service", "services\auth-service\auth-service.csproj", "{435CA72D-78F0-4B6B-9039-E89894C9BBFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,8 +28,13 @@ Global
 		{803F7DB6-3A93-4E11-BD97-42B1C8DAC2EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{803F7DB6-3A93-4E11-BD97-42B1C8DAC2EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{803F7DB6-3A93-4E11-BD97-42B1C8DAC2EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{435CA72D-78F0-4B6B-9039-E89894C9BBFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{435CA72D-78F0-4B6B-9039-E89894C9BBFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{435CA72D-78F0-4B6B-9039-E89894C9BBFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{435CA72D-78F0-4B6B-9039-E89894C9BBFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9243A979-0967-4745-8697-CA3F29AE73D5} = {8983DC8B-852A-48EE-8619-5AFC82465D10}
+		{435CA72D-78F0-4B6B-9039-E89894C9BBFE} = {8983DC8B-852A-48EE-8619-5AFC82465D10}
 	EndGlobalSection
 EndGlobal
