@@ -46,6 +46,8 @@ if (app.Environment.IsDevelopment())
 // app.UseHttpsRedirection();
 app.UseCors("corsapp");
 
+app.UseHttpsRedirection();
+
 app.MapControllers();
 
 ApplyMigration();

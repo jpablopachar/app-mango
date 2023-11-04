@@ -34,7 +34,8 @@ namespace client.Services
 
                 var token = _tokenProvider.GetToken();
 
-                httpRequestMessage.Headers.Add("Accept", requestDto.ContentType == ContentType.MultipartFormData ? "*/*" : withBearer ? $"Bearer {token}" : "application/json");
+                // httpRequestMessage.Headers.Add("Accept", requestDto.ContentType == ContentType.MultipartFormData ? "*/*" : withBearer ? $"Bearer {token}" : "application/json");
+                httpRequestMessage.Headers.Add("Accept", "application/json");
 
                 httpRequestMessage.RequestUri = new Uri(requestDto.Url!);
 
@@ -61,10 +62,22 @@ namespace client.Services
                 }
                 else
                 {
-                    httpRequestMessage.Content = new StringContent(JsonConvert.SerializeObject(requestDto.Data), Encoding.UTF8, "application/json");
+                    if (requestDto.Data != null) httpRequestMessage.Content = new StringContent(JsonConvert.SerializeObject(requestDto.Data), Encoding.UTF8, "application/json");
                 }
 
-                switch (httpResponseMessage!.StatusCode)
+                HttpResponseMessage? responseMessage = null;
+
+                httpRequestMessage.Method = requestDto.ApiType switch
+                {
+                    ApiType.POST => HttpMethod.Post,
+                    ApiType.DELETE => HttpMethod.Delete,
+                    ApiType.PUT => HttpMethod.Put,
+                    _ => HttpMethod.Get,
+                };
+
+                responseMessage = await httpClient.SendAsync(httpRequestMessage);
+
+                switch (responseMessage!.StatusCode)
                 {
                     case HttpStatusCode.Unauthorized:
                         return new ResponseDto { Message = "Unauthorized", Success = false };
@@ -75,7 +88,7 @@ namespace client.Services
                     case HttpStatusCode.InternalServerError:
                         return new ResponseDto { Message = "Internal Server Error", Success = false };
                     default:
-                        var apiContent = await httpResponseMessage.Content.ReadAsStringAsync();
+                        var apiContent = await responseMessage.Content.ReadAsStringAsync();
                         var apiResponseDto = JsonConvert.DeserializeObject<ResponseDto>(apiContent);
 
                         return apiResponseDto!;
