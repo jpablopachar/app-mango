@@ -20,15 +20,6 @@ builder.Services.AddSingleton(mapper);
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-/* var mapperConfig = new MapperConfiguration(mc =>
-{
-    mc.AddProfile(new CouponProfile());
-});
-
-IMapper mapper = mapperConfig.CreateMapper();
-
-builder.Services.AddSingleton(mapper); */
-
 builder.Services.AddCors(o => o.AddPolicy("corsapp", builder =>
 {
     builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
