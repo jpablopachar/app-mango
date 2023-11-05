@@ -30,39 +30,24 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home"
                                 asp-action="Index">Inicio</a>
                         </li>
-                        @* @if (User.IsInRole(SD.ROLE_ADMIN))
+                        @if (User.IsInRole(SD.ROLE_ADMIN))
                         {
-                        <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Administrar Contenido
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" asp-controller="Coupon" asp-action="CouponIndex">Cupón</a>
-                        </li>
-                        <li><a class="dropdown-item" asp-controller="Product"
-                        asp-action="ProductIndex">Producto</a></li>
-                        <li>
-                        <hr class="dropdown-divider">
-                        </li>
-                        </ul>
-                        </li>
-                        } *@
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Administrar Contenido
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" asp-controller="Coupon" asp-action="CouponIndex">Cupón</a>
-                                </li>
-                                <li><a class="dropdown-item" asp-controller="Product"
-                                        asp-action="ProductIndex">Producto</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                            </ul>
-                        </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Administrar Contenido
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" asp-controller="Coupon" asp-action="CouponIndex">Cupón</a>
+                                    </li>
+                                    <li><a class="dropdown-item" asp-controller="Product"
+                                            asp-action="ProductIndex">Producto</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                </ul>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link " asp-area="" asp-controller="Order" asp-action="OrderIndex">
                                 Manage Order

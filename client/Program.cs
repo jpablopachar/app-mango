@@ -1,6 +1,7 @@
 using client.Interfaces;
 using client.Services;
 using client.Utilities;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,12 +10,22 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
 builder.Services.AddHttpClient<ICouponService, CouponService>();
+builder.Services.AddHttpClient<IAuthService, AuthService>();
 
 SD.CouponApi = builder.Configuration["ServiceUrls:CouponApi"];
+SD.CouponApi = builder.Configuration["ServiceUrls:AuthApi"];
 
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+{
+    options.ExpireTimeSpan = TimeSpan.FromHours(10);
+    options.LoginPath = "/auth/login";
+    options.AccessDeniedPath = "/auth/accessDenied";
+});
 
 var app = builder.Build();
 

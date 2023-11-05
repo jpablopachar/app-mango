@@ -5,7 +5,7 @@ namespace client.Models
     public class LoginRequestDto
     {
         [Required]
-        public string? Username { get; set; }
+        public string? UserName { get; set; }
         [Required]
         public string? Password { get; set; }
     }
