@@ -13,7 +13,7 @@ builder.Services.AddHttpClient<ICouponService, CouponService>();
 builder.Services.AddHttpClient<IAuthService, AuthService>();
 
 SD.CouponApi = builder.Configuration["ServiceUrls:CouponApi"];
-SD.CouponApi = builder.Configuration["ServiceUrls:AuthApi"];
+SD.AuthApi = builder.Configuration["ServiceUrls:AuthApi"];
 
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<IBaseService, BaseService>();

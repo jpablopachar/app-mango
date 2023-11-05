@@ -8,8 +8,8 @@ namespace client.Utilities
         public static string? ShoppingCartApi { get; set; }
         public static string? OrderApi { get; set; }
 
-        public const string ROLE_ADMIN = "Admin";
-        public const string ROLE_CUSTOMER = "Customer";
+        public const string ROLE_ADMIN = "ADMIN";
+        public const string ROLE_CUSTOMER = "CUSTOMER";
         public const string JWT_TOKEN = "JwtToken";
         public const string STATUS_PENDING = "Pending";
         public const string STATUS_READY_FOR_PICKUP = "ReadyForPickup";

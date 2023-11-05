@@ -147,7 +147,7 @@ namespace client.Controllers
 
             identity.AddClaim(new Claim(JwtRegisteredClaimNames.Name, token.Claims.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Name)!.Value));
 
-            identity.AddClaim(new Claim(ClaimTypes.Email, token.Claims.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Email)!.Value));
+            identity.AddClaim(new Claim(ClaimTypes.Name, token.Claims.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Email)!.Value));
 
             identity.AddClaim(new Claim(ClaimTypes.Role, token.Claims.FirstOrDefault(u => u.Type == "role")!.Value));
 

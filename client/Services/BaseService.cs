@@ -30,12 +30,12 @@ namespace client.Services
             {
                 HttpClient httpClient = _httpClientFactory.CreateClient("MangoAPI");
                 HttpRequestMessage httpRequestMessage = new();
-                HttpResponseMessage? httpResponseMessage = null;
+                // HttpResponseMessage? httpResponseMessage = null;
 
                 var token = _tokenProvider.GetToken();
 
-                // httpRequestMessage.Headers.Add("Accept", requestDto.ContentType == ContentType.MultipartFormData ? "*/*" : withBearer ? $"Bearer {token}" : "application/json");
-                httpRequestMessage.Headers.Add("Accept", "application/json");
+                httpRequestMessage.Headers.Add(withBearer ? "Authorization" : "Accept", requestDto.ContentType == ContentType.MultipartFormData ? "*/*" : withBearer ? $"Bearer {token}" : "application/json");
+                // httpRequestMessage.Headers.Add("Accept", "application/json");
 
                 httpRequestMessage.RequestUri = new Uri(requestDto.Url!);
 
