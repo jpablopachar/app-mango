@@ -8,7 +8,7 @@ namespace product_service.Extensions
     {
         public static WebApplicationBuilder AddAppAuthentication(this WebApplicationBuilder builder)
         {
-            var settingsSection = builder.Configuration.GetSection("ApiSettings:JwtOptions");
+            var settingsSection = builder.Configuration.GetSection("ApiSettings");
             var secret = settingsSection.GetValue<string>("Secret");
             var issuer = settingsSection.GetValue<string>("Issuer");
             var audience = settingsSection.GetValue<string>("Audience");
