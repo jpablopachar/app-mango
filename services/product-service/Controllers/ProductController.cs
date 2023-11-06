@@ -22,6 +22,9 @@ namespace product_service.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>Retrieves a list of products and maps them to a list of
+        /// products</summary>
+        /// <returns>ResponseDto object.</returns>
         [HttpGet]
         public ResponseDto Get()
         {
@@ -41,6 +44,10 @@ namespace product_service.Controllers
             return _response;
         }
 
+        /// <summary>Retrieves a product by its ID and returns a response containing
+        /// the product information.</summary>
+        /// <param name="id">Represents the unique identifier of a product.</param>
+        /// <returns>ResponseDto object.</returns>
         [HttpGet]
         [Route("{id:int}")]
         public ResponseDto Get(int id)
@@ -61,6 +68,10 @@ namespace product_service.Controllers
             return _response;
         }
 
+        /// <summary>Handles a POST request to add a new product.</summary>
+        /// <param name="ProductDto">Represents the product information being passed
+        /// in the request body.</param>
+        /// <returns>ResponseDto object.</returns>
         [HttpPost]
         [Authorize(Roles = "ADMIN")]
         public ResponseDto Post(ProductDto productDto)
@@ -74,7 +85,6 @@ namespace product_service.Controllers
 
                 if (productDto.Image != null)
                 {
-
                     string fileName = product.ProductId + Path.GetExtension(productDto.Image.FileName);
                     string filePath = @"wwwroot\ProductImages\" + fileName;
 
@@ -115,7 +125,10 @@ namespace product_service.Controllers
             return _response;
         }
 
-
+        /// <summary>Updates a product in the database, including its image if provided, and
+        /// returns a response.</summary>
+        /// <param name="ProductDto">Represents the product information.</param>
+        /// <returns>ResponseDto object.</returns>
         [HttpPut]
         [Authorize(Roles = "ADMIN")]
         public ResponseDto Put(ProductDto productDto)
@@ -166,6 +179,11 @@ namespace product_service.Controllers
             return _response;
         }
 
+        /// <summary>Deletes a product from a database, including deleting the
+        /// associated image file if it exists.</summary>
+        /// <param name="id">Represents the unique identifier of the product that needs
+        /// to be deleted.</param>
+        /// <returns>ResponseDto object.</returns>
         [HttpDelete]
         [Route("{id:int}")]
         [Authorize(Roles = "ADMIN")]
