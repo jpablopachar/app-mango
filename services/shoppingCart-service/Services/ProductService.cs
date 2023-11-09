@@ -13,6 +13,9 @@ namespace shoppingCart_service.Services
             _httpClientFactory = httpClientFactory;
         }
 
+        /// <summary>Sends an HTTP GET request to a product API, retrieves the response, and
+        /// deserializes it into a list of `ProductDto` objects.</summary>
+        /// <returns>`IEnumerable<ProductDto>`.</returns>
         public async Task<IEnumerable<ProductDto>> GetProducts()
         {
             var client = _httpClientFactory.CreateClient("Product");

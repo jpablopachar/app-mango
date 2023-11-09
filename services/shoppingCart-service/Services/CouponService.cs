@@ -13,6 +13,11 @@ namespace shoppingCart_service.Services
             _httpClientFactory = httpClientFactory;
         }
 
+        /// <summary>Retrieves a coupon from an API using a coupon code and returns it
+        /// as a `CouponDto` object.</summary>
+        /// <param name="couponCode">Represents the code of the coupon that you want to
+        /// retrieve.</param>
+        /// <returns>Task of type CouponDto.</returns>
         public async Task<CouponDto> GetCoupon(string couponCode)
         {
             var client = _httpClientFactory.CreateClient("Coupon");
