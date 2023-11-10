@@ -22,6 +22,28 @@ namespace client.Controllers
             return View(await LoadCartDtoBasedOnLoggedInUser());
         }
 
+        /// <summary>Removes an item from the shopping cart and redirects to the cart index
+        /// page if successful.</summary>
+        /// <param name="cartDetailsId">Represents the ID of the cart details item that needs
+        /// to be removed from the shopping cart.</param>
+        /// <returns>If the response is not null and the response's success property is
+        /// true, then a redirect to the "CartIndex" action is returned. Otherwise, a view
+        /// is returned.</returns>
+        public async Task<IActionResult> Remove(int cartDetailsId)
+        {
+            var userId = User.Claims.Where(u => u.Type == JwtRegisteredClaimNames.Sub).FirstOrDefault()!.Value;
+
+            ResponseDto response = await _shoppingCartService.RemoveFromCartAsync(cartDetailsId);
+
+            if (response != null && response.Success)
+            {
+                TempData["success"] = "Carrito actualizado correctamente.";
+
+                return RedirectToAction(nameof(CartIndex));
+            }
+            return View();
+        }
+
         /// <summary>Handles the HTTP POST request to apply a coupon to the shopping cart and
         /// redirects to the cart index page if successful.</summary>
         /// <param name="CartDto">Represents the shopping cart.</param>
