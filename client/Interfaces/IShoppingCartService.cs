@@ -2,7 +2,7 @@ using client.Models;
 
 namespace client.Interfaces
 {
-    public interface ICartService
+    public interface IShoppingCartService
     {
         Task<ResponseDto> GetCartByUserIdAsync(string userId);
         Task<ResponseDto> UpsertCartAsync(CartDto cartDto);
