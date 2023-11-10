@@ -4,11 +4,11 @@ using client.Utilities;
 
 namespace client.Services
 {
-    public class CartService : IShoppingCartService
+    public class ShoppingCartService : IShoppingCartService
     {
         private readonly IBaseService _baseService;
 
-        public CartService(IBaseService baseService)
+        public ShoppingCartService(IBaseService baseService)
         {
             _baseService = baseService;
         }
