@@ -31,6 +31,8 @@ namespace email_service.Messaging
             _registerUserProcessor = client.CreateProcessor(_registerUserQueue);
         }
 
+        /// <summary>Starts two processors, one for processing email cart requests and
+        /// another for processing user registration requests.</summary>
         public async Task Start()
         {
             _emailCartProcessor.ProcessMessageAsync += OnEmailCartRequestReceived;
@@ -44,6 +46,7 @@ namespace email_service.Messaging
             await _registerUserProcessor.StartProcessingAsync();
         }
 
+        /// <summary>Stops and disposes two processors asynchronously.</summary>
         public async Task Stop()
         {
             await _emailCartProcessor.StopProcessingAsync();
@@ -53,6 +56,11 @@ namespace email_service.Messaging
             await _registerUserProcessor.DisposeAsync();
         }
 
+        /// <summary>Handles the processing of an email cart request by deserializing the
+        /// request body, calling the `_emailService.EmailCartAndLogAsync` method, and
+        /// completing the message.</summary>
+        /// <param name="args">Contains information about a message
+        /// received by a message processor.</param>
         private async Task OnEmailCartRequestReceived(ProcessMessageEventArgs args)
         {
             var message = args.Message;
@@ -68,6 +76,10 @@ namespace email_service.Messaging
             catch (Exception) { throw; }
         }
 
+        /// <summary>Handles a user registration request by extracting the email from the
+        /// message body, registering the email and logging the registration
+        /// asynchronously, and then completing the message.</summary>
+        /// <param name="args">Contains information about a message received by a message processor.</param>
         private async Task OnUserRegisterRequestReceived(ProcessMessageEventArgs args)
         {
             var message = args.Message;
@@ -83,6 +95,9 @@ namespace email_service.Messaging
             catch (Exception) { throw; }
         }
 
+        /// <summary>Handles and logs exceptions that occur during a process.</summary>
+        /// <param name="args">Contains information about an error that occurred during a process.</param>
+        /// <returns>Task object with the CompletedTask property.</returns>
         private static Task ErrorHandler(ProcessErrorEventArgs args)
         {
             Console.WriteLine(args.Exception.ToString());
