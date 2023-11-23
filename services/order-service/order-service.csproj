@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>order_service</RootNamespace>
+    <UserSecretsId>6edb34f5-b08b-430b-b9c3-725af4563950</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
