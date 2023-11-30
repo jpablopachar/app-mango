@@ -1,7 +1,7 @@
 using auth_service.Dtos;
 using auth_service.Interfaces;
-using message_bus;
 using Microsoft.AspNetCore.Mvc;
+using rabbitmq_bus;
 
 namespace auth_service.Controllers
 {
@@ -10,11 +10,11 @@ namespace auth_service.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
-        private readonly IMessageBus _messageBus;
+        private readonly IRabbitMQMessageBus _messageBus;
         private readonly IConfiguration _configuration;
         protected ResponseDto _response;
 
-        public AuthController(IAuthService authService, IMessageBus messageBus, IConfiguration configuration)
+        public AuthController(IAuthService authService, IRabbitMQMessageBus messageBus, IConfiguration configuration)
         {
             _authService = authService;
             _messageBus = messageBus;
@@ -40,7 +40,7 @@ namespace auth_service.Controllers
                 return BadRequest(_response);
             }
 
-            await _messageBus.PublishMessageAsync(registerRequestDto.Email!, _configuration.GetValue<string>("TopicAndQueueNames:RegisterUserQueue")!);
+            _messageBus.SendMessage(registerRequestDto.Email!, _configuration.GetValue<string>("TopicAndQueueNames:RegisterUserQueue")!);
 
             return Ok(_response);
         }
