@@ -73,7 +73,7 @@ namespace product_service.Controllers
         /// in the request body.</param>
         /// <returns>ResponseDto object.</returns>
         [HttpPost]
-        // [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Post(ProductDto productDto)
         {
             try
@@ -130,7 +130,7 @@ namespace product_service.Controllers
         /// <param name="ProductDto">Represents the product information.</param>
         /// <returns>ResponseDto object.</returns>
         [HttpPut]
-        // [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Put(ProductDto productDto)
         {
             try
@@ -186,7 +186,7 @@ namespace product_service.Controllers
         /// <returns>ResponseDto object.</returns>
         [HttpDelete]
         [Route("{id:int}")]
-        // [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Delete(int id)
         {
             try
