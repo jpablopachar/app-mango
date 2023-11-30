@@ -1,5 +1,6 @@
 using auth_service.Dtos;
 using auth_service.Interfaces;
+using message_bus;
 using Microsoft.AspNetCore.Mvc;
 
 namespace auth_service.Controllers
@@ -9,12 +10,14 @@ namespace auth_service.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
+        private readonly IMessageBus _messageBus;
         private readonly IConfiguration _configuration;
         protected ResponseDto _response;
 
-        public AuthController(IAuthService authService, IConfiguration configuration)
+        public AuthController(IAuthService authService, IMessageBus messageBus, IConfiguration configuration)
         {
             _authService = authService;
+            _messageBus = messageBus;
             _configuration = configuration;
             _response = new();
         }
@@ -36,6 +39,8 @@ namespace auth_service.Controllers
 
                 return BadRequest(_response);
             }
+
+            await _messageBus.PublishMessageAsync(registerRequestDto.Email!, _configuration.GetValue<string>("TopicAndQueueNames:RegisterUserQueue")!);
 
             return Ok(_response);
         }
