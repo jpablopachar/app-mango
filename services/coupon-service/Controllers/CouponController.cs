@@ -2,12 +2,14 @@ using AutoMapper;
 using coupon_service.Data;
 using coupon_service.Dtos;
 using coupon_service.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace coupon_service.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CouponController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -92,6 +94,7 @@ namespace coupon_service.Controllers
         /// <param name="CouponDto">Represents the coupon information.</param>
         /// <returns>ResponseDto object.</returns>
         [HttpPost]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Post([FromBody] CouponDto couponDto)
         {
             try
@@ -116,6 +119,7 @@ namespace coupon_service.Controllers
         /// <param name="CouponDto">Represents the coupon information.</param>
         /// <returns>ResponseDto object.</returns>
         [HttpPut]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Put([FromBody] CouponDto couponDto)
         {
             try
@@ -142,6 +146,7 @@ namespace coupon_service.Controllers
         /// <returns>ResponseDto object.</returns>
         [HttpDelete]
         [Route("{id:int}")]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto Delete(int id)
         {
             try
