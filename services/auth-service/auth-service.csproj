@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\integration\message-bus\message-bus.csproj" />
+    <ProjectReference Include="..\..\integration\rabbitmq-bus\rabbitmq-bus.csproj" />
   </ItemGroup>
 
 </Project>
