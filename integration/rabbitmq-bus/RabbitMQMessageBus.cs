@@ -13,7 +13,7 @@ namespace rabbitmq_bus
 
         public RabbitMQMessageBus()
         {
-            _hostName = "localhost";
+            _hostName = "rabbitmq-web";
             _password = "guest";
             _userName = "guest";
         }
